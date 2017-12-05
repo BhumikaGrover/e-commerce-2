@@ -1,0 +1,25 @@
+<ion-content padding>
+<div class="close-btn">
+	<button ion-button clear (click)="dismiss()"><ion-icon name="close" ></ion-icon></button>
+</div>
+<div class="outer-box">
+	<div class="logo-sec">
+		<h1>Sign In</h1>
+	</div>
+	<div class="form-sec">
+		<form #heroForm="ngForm">
+			<ion-list>
+			  <ion-item>
+				<ion-input type="email" placeholder="Email" [(ngModel)]="data.email" name="email" #email="ngModel"></ion-input>
+			  </ion-item>
+			  <ion-item>
+				<ion-input type="password" placeholder="Password" [(ngModel)]="data.password" name="password" #password="ngModel"></ion-input>
+			  </ion-item>
+			  <button  color="theme" ion-button round block (click)="sign_in(heroForm)">Sign In</button>
+			</ion-list>
+		</form>
+             <button ion-button class="pass-btn" (click)="forgot()">Forgot Password</button>
+	<button ion-button (click)="openSignupPage()" class="join-btn">Join Now</button>
+	</div>
+</div>
+</ion-content>
