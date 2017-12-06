@@ -16,7 +16,13 @@ export class SharedProvider {
 public baseUrl: string="http://ecommerce-env.us-east-2.elasticbeanstalk.com/";
 
 ///////Api////////////
-public SIGNUP= "api/users";
+public SIGNUP= "api/users/register";
 public SIGNIN= "api/users/login";
 public FORGOT= "api/forgetpass";
+public FACEBOOK="/api/users/facebooklogin";
+public TWITTER="/api/users/twitterlogin";
+public SHOW_PROFILE="/api/users/fetchuserdeatils";
+public EDIT_PROFILE="/api/users/editusrdetails ";
+public CHANGE_PASSWORD="/api/users/change_password_app";
+;
 }

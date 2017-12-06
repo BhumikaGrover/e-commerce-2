@@ -7,6 +7,7 @@ import { CommonProvider } from '../../providers/common/common';
 import { SharedProvider } from '../../providers/shared/shared';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { SigninPage } from '../signin/signin';
 
 @Component({
   selector: 'page-signup',
@@ -57,7 +58,7 @@ export class SignupPage {
           password:data.value.password,
           confirm_password:data.value.cpassword,
           gender:"fgjfgfj",
-
+          role:"customer"
       }
     console.log(post);
     var serialized_data = this.Cmn.serializeObj(post);
@@ -76,7 +77,14 @@ export class SignupPage {
         console.log(resolve);
          Loading.dismiss();
          if(resolve.error==0){
-             //this.navCtrl.push(MyprofilePage)
+              let toast = this.toastCtrl.create({
+                message:resolve.message,
+                duration: 4000,
+                cssClass: 'toastCss',
+                position: 'middle',
+              });
+              toast.present();
+             this.navCtrl.push(SigninPage)
          }else{
                let toast = this.toastCtrl.create({
                 message:resolve.message,

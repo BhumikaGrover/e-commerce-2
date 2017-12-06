@@ -25,6 +25,7 @@ import { ChangepasswordPage } from '../pages/changepassword/changepassword';
 import { Shipping_addressPage } from '../pages/shipping_address/shipping_address';
 import { PaymentPage } from '../pages/payment/payment';
 import { ForgotPage } from '../pages/forgot/forgot';
+import { EditprofilePage } from '../pages/editprofile/editprofile';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { CommonProvider } from '../providers/common/common';
@@ -36,6 +37,7 @@ import { Http, HttpModule, JsonpModule } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+import { TwitterConnect } from '@ionic-native/twitter-connect';
 
 
 @NgModule({
@@ -63,7 +65,8 @@ import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 	ChangepasswordPage,
 	Shipping_addressPage,
 	PaymentPage,
-        ForgotPage
+        ForgotPage,
+        EditprofilePage
   ],
   imports: [
     BrowserModule,
@@ -96,7 +99,8 @@ import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 	ChangepasswordPage,
 	Shipping_addressPage,
 	PaymentPage,
-        ForgotPage
+        ForgotPage,
+        EditprofilePage
   ],
   providers: [
     StatusBar,
@@ -105,7 +109,8 @@ import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
     CommonProvider,
     SharedProvider,
     GooglePlus,
-    Facebook
+    Facebook,
+    TwitterConnect
    
 
   ]

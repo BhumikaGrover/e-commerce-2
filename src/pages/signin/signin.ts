@@ -6,7 +6,7 @@ import { SharedProvider } from '../../providers/shared/shared';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { ForgotPage } from '../forgot/forgot';
-
+import { MyprofilePage } from '../myprofile/myprofile';
 @Component({
   selector: 'page-signin',
   templateUrl: 'signin.html'
@@ -67,6 +67,25 @@ sign_in(data){
       .subscribe(resolve => {
         console.log(resolve);
          Loading.dismiss();
+         if(resolve.error==0){
+        localStorage.setItem('userid', resolve.user.id);   
+         localStorage.setItem('simple', resolve.user.id);   
+        let toast = this.toastCtrl.create({
+            message: resolve.message,
+            duration: 3000,
+            position: 'middle'
+          });
+           toast.present();
+           this.navCtrl.push(MyprofilePage)
+           
+         }else{
+               let toast = this.toastCtrl.create({
+            message: resolve.message,
+            duration: 3000,
+            position: 'middle'
+          });
+           toast.present();
+         }
       },error => {
        Loading.dismiss();
      // alert(JSON.stringify(error));

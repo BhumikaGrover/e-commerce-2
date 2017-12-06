@@ -22,6 +22,7 @@ import { Change_emailPage } from '../pages/change_email/change_email';
 import { ChangepasswordPage } from '../pages/changepassword/changepassword';
 import { Shipping_addressPage } from '../pages/shipping_address/shipping_address';
 import { PaymentPage } from '../pages/payment/payment';
+import { EditprofilePage } from '../pages/editprofile/editprofile';
 export interface PageInterface {
   title: string;
   pageName: string;
@@ -34,12 +35,12 @@ export interface PageInterface {
 })
 export class MyApp {
   rootPage:any = GetstartedPage;
- pages: Array<{title: string, component: any}>;
- pages2: any;
+// pages: Array<{title: string, component: any}>;
+// pages2: any;
  @ViewChild(Nav) nav: Nav;
  
  
- pages: PageInterface[] = [
+pages: PageInterface[] = [
     { title: 'Home', pageName: 'TabsPage', tabComponent: 'HomePage', index: 0, icon: 'home' },
     { title: 'Notification', pageName: 'TabsPage',  tabComponent: 'NotificationPage', index: 3, icon: 'home' },
      { title: 'Transition', pageName: 'TabsPage', tabComponent: 'TransitionPage', index: 1, icon: 'contacts' },

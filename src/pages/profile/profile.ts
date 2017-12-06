@@ -8,6 +8,8 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+import { MyprofilePage } from '../myprofile/myprofile';
+import { TwitterConnect } from '@ionic-native/twitter-connect';
 
 @Component({
   selector: 'page-profile',
@@ -26,7 +28,8 @@ profilepicface:any;
       private alertCtrl: AlertController,
       private toastCtrl: ToastController,
       private googlePlus: GooglePlus,
-      private fb: Facebook
+      private fb: Facebook,
+      private twitter:TwitterConnect
       ) {
 
   }
@@ -43,8 +46,8 @@ profilepicface:any;
       alert("bhumi")
     alert('fgdhfgdh');
     this.googlePlus.login({
-  // 'webClientId': '566433833064-lr60t74t0t8ss6melirlue4bc32sgm05.apps.googleusercontent.com',
- //  'offline': true
+  // 'webClientId': '566433833064-tb2ahj8lu8ukpjtlfnfm069ltskqhpr1s.apps.googleusercontent.com',
+  // 'offline': true
     }).then(res => {
     console.log(res);
       alert(JSON.stringify(res));
@@ -78,24 +81,37 @@ profilepicface:any;
             alert(result.id);
             this.profilepicface = "https://graph.facebook.com/" + result.id + "/picture?type=large"
             console.log(this.profilepicface);
-//             var url: string = this.shared.baseUrl + "this.variable.SIGNIN_API";
-//             var signindata = {
-//              full_name: result.first_name,
-//              email: result.email,
-//              image:this.profilepicface,
-//              facebook_id:result.id
-//            }
-//            
-//            var serialized_data = this.Cmn.serializeObj(signindata);
-//            console.log(serialized_data)
-//
-//            let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8' });
-//            let options = new RequestOptions({ headers: headers });
-//            this.http.post(url, serialized_data, options)
-//              .map(res => res.json())
-//              .subscribe(resolve => {
-//                console.log(resolve);
-//              })
+               var url: string = this.shared.baseUrl + this.shared.FACEBOOK;
+             var signindata = {
+              full_name: result.first_name,
+              email: result.email,
+              image:this.profilepicface,
+              facebook_id:result.id
+            }
+            
+            var serialized_data = this.Cmn.serializeObj(signindata);
+            console.log(serialized_data)
+
+            let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8' });
+            let options = new RequestOptions({ headers: headers });
+            this.http.post(url, serialized_data, options)
+              .map(res => res.json())
+              .subscribe(resolve => {
+                console.log(resolve);
+                if(resolve.error==0){
+                    localStorage.setItem('userid', resolve.data._id);  
+                    localStorage.setItem('facebook', resolve.data._id);  
+                     let toast = this.toastCtrl.create({
+            message: resolve.message,
+            duration: 3000,
+            position: 'middle'
+          });
+           toast.present();
+           this.navCtrl.push(MyprofilePage)
+                }else{
+                    
+                }
+              })
           
           }).catch(d => {
             alert(JSON.stringify(d))
@@ -110,4 +126,79 @@ profilepicface:any;
       });
       
         }
+        
+        ///////////twitter//////////
+        public twitter_login(){
+            //alert("twitter");
+            this.twitter.login().then(onSuccess => {
+         alert('response');
+         alert(JSON.stringify(onSuccess));
+        console.log(onSuccess);
+        
+          var url: string = this.shared.baseUrl + this.shared.TWITTER;
+             var signindata = {
+              full_name: onSuccess.userName,
+              email: onSuccess.userName,
+              image:"onSuccess.photoURL",
+              facebook_id:onSuccess.userId
+            }
+            
+            var serialized_data = this.Cmn.serializeObj(signindata);
+            console.log(serialized_data)
+
+            let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8' });
+            let options = new RequestOptions({ headers: headers });
+            this.http.post(url, serialized_data, options)
+              .map(res => res.json())
+              .subscribe(resolve => {
+                console.log(resolve);
+                if(resolve.error==0){
+                    localStorage.setItem('userid', resolve.data._id);  
+                    localStorage.setItem('facebook', resolve.data._id);  
+                     let toast = this.toastCtrl.create({
+            message: resolve.message,
+            duration: 3000,
+            position: 'middle'
+          });
+           toast.present();
+           this.navCtrl.push(MyprofilePage)
+                }else{
+                    
+                }
+              })
+        
+        
+    }, error => {
+          alert('error')
+          alert(JSON.stringify(error));
+        console.log(error);
+      });
+        }
+        
+        
+//         twLogin(): void {
+//    this.twitter.login().then(response => {
+//      const twitterCredential = firebase.auth.TwitterAuthProvider.credential(response.token, response.secret);
+//
+//      firebase.auth().signInWithCredential(twitterCredential).then(userProfile => {
+//        this.zone.run(() => {
+//          this.userProfile = userProfile;
+//          this.userProfile.twName = response.userName;
+//          console.log(this.userProfile);
+//          this.email = this.userProfile.twName;
+//          this.name = this.userProfile.displayName;
+//          this.twitter_id = this.userProfile.uid;
+//          this.image = this.userProfile.photoURL;
+//          console.log(this.email + ' ' + this.name)
+//
+//          this.twApiLogin(this.email, this.name, this.twitter_id, this.image);
+//
+//        });
+//      }, error => {
+//        console.log(error);
+//      });
+//    }, error => {
+//      console.log("Error connecting to twitter: ", error);
+//    });
+//  }
 }

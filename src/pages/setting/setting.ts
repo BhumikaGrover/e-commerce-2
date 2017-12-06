@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, ViewController, NavParams ,ModalController} from 'ionic-angular';
-import { Change_emailPage } from '../change_email/change_email';
+import { EditprofilePage } from '../editprofile/editprofile';
 import { Shipping_addressPage } from '../shipping_address/shipping_address';
 import { PaymentPage } from '../payment/payment';
 
@@ -30,8 +30,8 @@ export class SettingPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad SettingPage');
   }
-  openemailpage(){
-	  this.navCtrl.push(Change_emailPage)
+  openeditprofilepage(){
+	  this.navCtrl.push(EditprofilePage)
   }
   open_shippingpage(){
 	  this.navCtrl.push(Shipping_addressPage)
